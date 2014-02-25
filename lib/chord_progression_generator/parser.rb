@@ -16,22 +16,14 @@ module ChordProgressionGenerator
         str('vi')  | str('VI')  |
         str('vii') | str('VII') ).as(:roman_numeral)
     end
-    rule(:roman_numeral?) { roman_numeral.maybe }
     
     rule(:connector)  { str('>') }
-    rule(:connector?) { connector.maybe }
     
-    rule(:connected_roman_numeral) { space? >> roman_numeral? >> space? >> connector? >> space? }
-    rule(:expression) do
-      connected_roman_numeral.repeat
-    end
+    rule(:connected_node) { space? >> connector >> node.as(:child) }
+    rule(:node) { space? >> roman_numeral >> connected_node.maybe }
     
-    root(:expression)
+    root(:node)
     
   end
   
 end
-
-require 'pp'
-pp ChordProgressionGenerator::Parser.new.parse("    I     >    IV  ")
-# pp ChordProgressionGenerator::Parser.new.parse("I > IV > V > I")
