@@ -6,14 +6,16 @@ describe ChordProgressionGenerator::Parser do
     
     subject { described_class.new }
     
-    it 'should parse correctly' do
+    it 'should parse a 2 chord progression correctly' do
       subject.parse('    I     >      V      ').should == {
         roman_numeral: 'I',
         child: {
           roman_numeral: 'V'
         }
       }
-      
+    end
+    
+    it 'should parse a 4 chord progression correctly' do
       subject.parse('    I     >      IV     >       V    >       I     ').should == {
         roman_numeral: 'I',
         child: {

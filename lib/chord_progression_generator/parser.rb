@@ -17,7 +17,7 @@ module ChordProgressionGenerator
         str('vii') | str('VII') ).as(:roman_numeral)
     end
     
-    rule(:connector)  { str('>') }
+    rule(:connector) { str('>') }
     
     rule(:connected_node) { space? >> connector >> node.as(:child) }
     rule(:node) { space? >> roman_numeral >> connected_node.maybe }
